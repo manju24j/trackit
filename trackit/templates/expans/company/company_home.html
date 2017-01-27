@@ -1,0 +1,72 @@
+ 
+{% extends "expans/company/company_base.html" %}
+
+{% load static %}
+
+{% block body_block %}
+
+<style type="text/css">
+  .row {
+    margin-right: 50px;
+    margin-left: 50px;
+}
+</style>
+<div class="row">
+      <div class="panel panel-default text-center">
+          <strong>Add No of Quantity here</strong>
+      
+            {% if mylist %}
+            <table align="center" class="table table-striped">
+              {% if item_list %}
+                 {% for m in mylist %}
+                    {% for i in item_list %}
+                          {% ifequal i.id m.item.id %}
+                          <tr>
+                          
+                            <form class="form-supplier"  method="post" action="/expans/company_add_entry/{{m.id}}/"enctype="multipart/form-data">
+                             
+                            {% csrf_token %}
+                            <!-- Display each form here -->
+                             {% if bad_details %}
+                            <strong>something is wrong check</strong>
+                            {% elif disabled_account %}
+                            <strong> we can't add now..!</strong>
+                            {% endif %} 
+                           <td>
+                         <img src="{{ i.picture.url }}" alt="" class="circle" width="25px" height="25px">
+                            </td>
+                             
+                             <td>
+                          <div class="login-form">
+                          <div class="styled-input">
+           
+                              <input type="text" name="qnty" pattern="[0-9]+" required=""/>
+                              <label>Enter Quantity</label> 
+                             </div>
+                             </div>
+                             </td>
+                             <td>
+                             {{m.measured}}
+                             </td>
+                             <td>
+                              <button class="btn btn-default" style="border-radius: 0px;" type="submit">Save</button>
+                              </td>
+                          
+
+                          </form>
+                          </tr>
+                    
+                          {%endifequal%}
+                        {% endfor %}
+                      {% endfor %}
+                    {% endif %}                                
+                  {% else %}
+                  </table>
+                  No item selected... add to my list.....
+            {% endif %}
+
+  </div>
+</div>
+
+    <!-- section -->
+{% endblock %}

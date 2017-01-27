@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+
+<html lang="en">
+{% load static %}
+
+<head>
+    <!-- For-Mobile-Apps-and-Meta-Tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Fortune Estates Widget Responsive, Login Form Web Template, Flat Pricing Tables, Flat Drop-Downs, Sign-Up Web Templates, Flat Web Templates, Login Sign-up Responsive Web Template, SmartPhone Compatible Web Template, Free Web Designs for Nokia, Samsung, LG, Sony Ericsson, Motorola Web Design" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- //For-Mobile-Apps-and-Meta-Tags -->
+    <!-- Custom Theme files -->
+    <link href="{% static 'css/bootstrap.css' %}" type="text/css" rel="stylesheet" media="all">
+    <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet" media="all"> 
+    <link rel="stylesheet" href="{% static 'css/ken-burns.css'%}" type="text/css" media="all" /> 
+    <!-- //Custom Theme files -->
+    <!-- js -->
+    <script src="{% static 'js/jquery-2.2.3.min.js' %}"></script> 
+    <!-- //js -->
+    <!-- pop-up-box -->
+    <script src="{% static 'js/jquery.magnific-popup.js' %}" type="text/javascript"></script>
+          <script>
+          $(document).ready(function() {
+            $('.popup-top-anim').magnificPopup({
+              type: 'inline',
+              fixedContentPos: false,
+              fixedBgPos: true,
+              overflowY: 'auto',
+              closeBtnInside: true,
+              preloader: false,
+              midClick: true,
+              removalDelay: 300,
+              mainClass: 'my-mfp-zoom-in'
+            });                                             
+          }); 
+        </script>
+    <!--//pop-up-box -->
+
+    <!-- web-fonts -->  
+    <link href='//fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <!-- //web-fonts -->
+<style type="text/css">
+      body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    line-height: 1.42;
+    color: #333;
+}
+    </style>
+</head>
+
+<body class="bg">
+  <div class="agile-main"> 
+    <div class="content-wrap">
+      <div class="header">
+        <div class="menu-icon">   
+          <button class="menu-button">Home</button>
+        </div>
+        <div class="logo">
+          <h2><a href="/expans/supplier/">Track-It</a></h2>
+        </div>
+
+          <div class="login">
+              {% if user.is_authenticated %}
+
+                <li><a style="color: white" href="/expans/supplier/profile/" class="glyphicon glyphicon-user"> {{user.username}}</a></li>
+                <li><a style="color: white" href="/expans/logout/">logout</a></li>
+              {% endif %}
+          </div>
+        <div class="clearfix"> </div>
+      </div>
+      
+
+      <div class="content">
+
+            <!-- welcome -->
+            
+            
+            {% if user.is_authenticated %}
+
+             <!--/welcome-->
+                <div class="welcome"> 
+                  <div class="welcome-info">
+                    <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+                      <ul id="myTab" class=" nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="/expans/supplier/">
+                          <span class="glyphicon glyphicon-briefcase"></span>
+                          <h5>Items</h5>
+                        </a></li>
+                        <li role="presentation"><a href="/expans/supplier_mylist/"> 
+                          <span class="glyphicon glyphicon-signal"></span>
+                          <h5> My-companies</h5>
+                        </a></li>
+                        <li role="presentation"><a href="/expans/supplier_transaction/"> 
+                          <span class="glyphicon glyphicon-home"></span>
+                          <h5>Transaction</h5>
+                        </a></li>
+                      </ul>
+
+                    </div>  
+                  </div>    
+                </div>
+                {% endif %} 
+                <!-- //welcome -->
+
+hi supplier
+            {% block body_block %}
+            
+            
+            {% endblock %}
+        
+      </div>
+    
+
+        <!-- footer -->
+      </div>
+    </div>
+   
+  <!-- menu-js -->
+  <script src="{% static 'js/classie.js' %}"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+  <!-- //menu-js -->
+  <!-- nice scroll-js -->
+  <script src="{% static 'js/jquery.nicescroll.min.js'%}"></script> 
+  <script>
+    $(document).ready(function() {
+    
+      var nice = $("html").niceScroll();  // The document page (body)
+    
+      $("#div1").html($("#div1").html()+' '+nice.version);
+    
+      $("#boxscroll").niceScroll({cursorborder:"",cursorcolor:"#00F",boxzoom:true}); // First scrollable DIV
+    });
+  </script>
+  <!-- //nice scroll-js -->
+  <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+</body>
+</html>

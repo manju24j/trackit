@@ -1,0 +1,154 @@
+  
+{% extends "expans/supplier/supplier_base.html" %}
+
+
+{% load static %}
+
+{% block body_block %}
+
+<style type="text/css">
+  .row {
+    margin-right: 50px;
+    margin-left: 50px;
+}
+</style>
+
+<!-- section -->
+    
+<style type="text/css">
+
+
+.col-sm-12 {
+    width: 102%;
+    float: left;
+    position: relative;
+    min-height: 1px; 
+    padding-right: 15px;
+    padding-left: 10px;
+
+}
+.panel-floating-inline {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.panel-floating {
+    border-top: 5px solid #6b15a1;
+    overflow: hidden;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+}
+.panel {
+    margin-bottom: 5px;
+    background-color: #fff;
+    border: -5px;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: 1px 1px 1px rgba(0,0,0,.05);
+}
+.panel-floating-inline .panel-body {
+    padding: 0px 0px;
+    display: flex; 
+    align-items: center;
+}
+.m-b-0 {
+    margin-bottom: 0 !important;
+}
+.panel-floating-inline .panel-actions {
+    -webkit-box-flex: 10;
+    -webkit-flex-grow: 10;
+    -ms-flex-positive: 10;
+    flex-grow: 10;
+}
+.pull-right {
+    float: center !important;
+}
+
+.btn {
+    display: inline-block;
+    font-size: 14px;
+    padding: 7px 5px;
+    border-radius: 4px;
+    color: blue;
+    border: 1px solid #6b15a1;
+    background: white;
+    font-weight: 400;
+}
+</style>
+
+<div class="row" style="margin-right: 50px; margin-left: 50px">
+          {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}"> {{ message }} </div>
+            {% endfor %}
+
+      <div class="panel panel-default text-center">
+          <strong>you are selected Items and its Suppliers</strong>
+                              <div class="form-inline pull-right">
+
+               <a href="/expans/select_company/">
+              <input value="Add new company "class="btn btn-lg" type="submit"></a>
+         </div>      <hr>
+
+<!--             {% for m in mylist %}
+            hi==>{{m.id}}={{m.item}}={{m.sup.id}}={{m.org.id}}={{m.sup.phoneno}}=<img src="{{ m.item.picture.url }}" class="circle" width="25px" height="25px"/> {{m.sup.user}} <br>
+            {% endfor%}
+ -->
+
+
+<div class="row row-backbordered" style="margin-right: 5px;margin-left: 5px">
+        
+        <ul>
+        </ul>
+
+          {% for i in myorg %}
+            {% for j in orglist%}
+            
+              {% ifequal i.org j.id %}
+                <!-- [=={{i.org}}=={{j.id}}] -->
+  
+      <div class="panel panel-default panel-floating panel-floating-inline">
+        <div class="panel-body">
+          <table class="table table-striped">
+          <tr>
+          <td>
+            <div class="form-inline pull-left">
+              <p class="text-muted"><strong>Supplies to </strong></p>
+
+            </div>     
+          </td>
+          <td>
+          <div class="form-inline pull-left">
+            {% if j.picture %}
+              <img src="{{ m.org.picture.url }}" class="circle" width="35px" height="35px"/>
+            {%endif%}<h3><span>{{j.user}}</span></h3>
+            <p class="text-muted"><h3><small>phone :{{j.phoneno}} </small></h3></p>
+        
+            </div>     
+
+            </td>
+<!--           <td>
+                     @ ₹  {{m.price}} per {{m.measured}}
+          </td>
+ -->          <td>
+          <div class="panel-actions">
+            
+            <div class="form-inline pull-left">
+               <a href="/expans/supplier_entry/{{i.org}}">
+              <input value="select"class="btn btn-lg" type="submit"></a>
+           </div>
+          </div>
+          </td>
+          </tr>
+          </table>
+        </div>
+      </div>
+
+              {%endifequal%}
+            {%endfor%}
+          {%endfor%}
+
+</div>
+</div>
+</div>
+
+
+    <!-- section -->
+{% endblock %}

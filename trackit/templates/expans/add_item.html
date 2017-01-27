@@ -1,0 +1,20 @@
+{% extends "expans/base.html" %}
+
+{% block title %}Register with Office expans{% endblock %}
+
+{% block body_block %}
+        <form class="form-item span8" id="item_form" method="post" action="/expans/add_item/"
+              enctype="multipart/form-data">
+            {% csrf_token %}
+           
+            {% for field in form.visible_fields %}
+            {{ field.errors }}
+            {{ field.help_text}}<br/>
+            {{ field }}<br/>
+            {% endfor %}
+
+            <br/>
+            <!-- Provide a button to click to submit the form. -->
+            <input class="btn btn-primary" type="submit" name="submit" value="upload"/>
+        </form>
+{% endblock %}

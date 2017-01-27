@@ -1,0 +1,90 @@
+
+{% extends "expans/base.html" %}
+
+{% load static %}
+
+{% block body_block %}
+
+    <!-- Bootstrap -->
+  <style type="text/css">
+
+      .well {
+            min-height: 31px;
+            padding: 5px;
+            margin-bottom: 20px;
+            background-color: #ffffff;
+            border: 1px solid #e3e3e3;
+            border-radius: 0px;
+        }    
+
+  </style>   
+<h1></h1>
+<div class="span8" style="margin-left: 10px;">
+
+    <div class="col-lg-6 col-md-6">
+      <div class="panel panel-green">
+        <strong>User Profile  <small> your Id:{{user.id}}</small></strong>
+          <div class="panel-heading">
+                       
+              <div class="row">
+                <div class="col-xs-3">
+                  <strong><h4>Name:{{ user.username }}</h4></strong>
+                </div>
+              </div>
+              <div class="panel-body">
+                {% if userprofile %}
+                  <p>Address: <a href="#">{{userprofile.address}}</a></p>
+                  <br/>
+                  {% if userprofile.picture %}
+                    <img width=50 height=50 src="{{ userprofile.picture.url }}"  />
+                  {% endif %}
+                {% endif %}
+              </div>
+          </div>
+                                
+          <div class="panel-footer">
+            <span class="pull-left">Email:</span>
+            <span class="pull-right">{{ user.email }}</span>
+          <div class="clearfix">
+         
+          </div>
+          </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6 col-md-6">
+      <div class="panel panel-yellow">
+        <strong>Organization Profile  <small>  Id:{{org.id}}</small></strong>
+          <div class="panel-heading">
+                       
+              <div class="row">
+                <div class="col-xs-3">
+                  <strong><h4>Name:{{ org.name }}</h4></strong>
+                </div>
+              </div>
+              <div class="panel-body">
+                
+                  <p>Address: <a href="#">{{org.address}}</a></p>
+                
+                  <p>contact no: <a href="#">{{org.contactno}}</a></p>
+                  
+                  {% if org.picture %}
+                    <img width=50 height=50 src="{{ org.picture.url }}"  />
+                 {% endif %}
+              </div>
+          </div>
+                                
+          <div class="panel-footer">
+            <span class="pull-left">web:</span>
+            <span class="pull-right"><a href="{{ org.website }}">{{ org.website }}</a></span>
+          <div class="clearfix">
+         
+          </div>
+          </div>
+        </div>
+    </div>
+
+
+</div><!--/ close span-8(main span) -->  
+
+{% endblock %}
