@@ -1,0 +1,256 @@
+
+{% extends "expans/supplier/supplier_base.html" %}
+
+
+{% load static %}
+
+{% block body_block %}
+    <!-- section -->
+<style type="text/css">
+
+
+.col-sm-12 {
+    width: 102%;
+    float: left;
+    position: relative;
+    min-height: 1px; 
+    padding-right: 15px;
+    padding-left: 10px;
+
+}
+.panel-floating-inline {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.panel-floating {
+    border-top: 5px solid #6b15a1;
+    overflow: hidden;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+}
+.panel {
+    margin-bottom: 5px;
+    background-color: #fff;
+    border: -5px;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: 1px 1px 1px rgba(0,0,0,.05);
+}
+.panel-floating-inline .panel-body {
+    padding: 0px 0px;
+    display: flex; 
+    align-items: center;
+}
+.m-b-0 {
+    margin-bottom: 0 !important;
+}
+.panel-floating-inline .panel-actions {
+    -webkit-box-flex: 10;
+    -webkit-flex-grow: 10;
+    -ms-flex-positive: 10;
+    flex-grow: 10;
+}
+.pull-right {
+    float: center !important;
+}
+
+.btn {
+    display: inline-block;
+    font-size: 14px;
+    padding: 7px 5px;
+    border-radius: 4px;
+    color: blue;
+    border: 1px solid #6b15a1;
+    background: white;
+    font-weight: 400;
+}
+ .row {
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+  .test{
+    display: block;
+  }
+  .testshow{
+    display: none !important;
+  }
+
+</style>
+<script type="text/javascript">
+  function sh(){
+    // alert('hello');
+    $('.test1').removeClass('testshow');
+  }
+</script>
+
+<div class="row myPanel">
+      <div class="panel panel-default text-center myPanel-in">
+         <strong> {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}"> {{ message }} </div>
+        {% endfor %}</strong>
+          <strong>you are selected Items and its Suppliers</strong>
+          <div class="form-inline pull-right">
+               <a href="/expans/select_company/">
+              <input value="Add new company "class="btn btn-lg" type="submit"></a>
+         </div>      <hr>
+
+<!--     {% for m in mylist %}
+            hi==>{{m.id}}={{m.item}}={{m.sup.id}}={{m.org.id}}={{m.sup.phoneno}}=<img src="{{ m.item.picture.url }}" class="circle" width="25px" height="25px"/> {{m.sup.user}} <br>
+            {% endfor%}
+ -->
+
+
+<div class="row row-backbordered" style="margin-right: 5px;margin-left: 5px">
+
+        {% if mylist %}
+            {% for m in mylist %}
+              {% for i in item_list %}
+                {% ifequal m.item.id i.id %}
+                  {% for s in supplier_list %}
+                    {% ifequal m.sup.id s.id %}
+
+  
+      <div class="panel panel-default panel-floating panel-floating-inline">
+        <div class="panel-body">
+          <table class="table table-striped">
+          <tr>
+<!--           <td>
+            <div class="form-inline pull-left">
+                  {% if m.sup.picture %}
+            <img src="{{m.sup.picture.url}}" class="circle responsive-img img_small" width="35px" height="35px"/>
+                  {%endif%}
+                  <span>{{m.sup.user}}</span>
+              <p class="text-muted"><strong><small>Supplies </small></strong></p>
+            </div>
+          </td>
+ -->
+          <td>
+            <div class="form-inline pull-left">
+              {% if i.picture %}
+              <img src="{{ i.picture.url }}" class="circle responsive-img img_small" width="50px" height="50px"/>
+              {%endif%}
+                                <span>{{i.name}}</span>
+              <p class="text-muted"><strong>Supplies to </strong></p>
+
+            </div>     
+          </td>
+          <td>
+          <div class="form-inline pull-middle">
+            {% if m.org.picture %}
+              <img src="{{ m.org.picture.url }}" class="circle" width="35px" height="35px"/>
+            {%endif%}<span>{{m.org.user}}</span>
+            <p class="text-muted"><strong><small>phone :{{m.org.phoneno}} </small></strong></p>
+        
+            </div>     
+            </td>
+          <td>
+                     @ ₹  {{m.price}} per {{m.measured}}
+          </td>
+          <td>
+          <div class="panel-actions">
+            
+            <div class="form-inline pull-right">
+               <!-- <a href="/rango/myitemdetails/{{item.id}}/"> -->
+              <input value="Details" class="btn btn-lg testbtn" id="testbtn" onclick="sh();" type="button">
+           </div>
+          </div>
+          </td>
+          </tr>
+
+          
+          <tr class='test1 testshow'>
+            <form class="form-supplier"  method="post" action="/expans/supplier_add_entry/{{m.id}}/"enctype="multipart/form-data">
+                             
+                            {% csrf_token %}
+                            <!-- Display each form here -->
+                             {% if bad_details %}
+                            <strong>something is wrong check</strong>
+                            {% elif disabled_account %}
+                            <strong> we can't add now..!</strong>
+                            {% endif %} 
+            <td>
+            <img src="{{ m.item.picture.url }}" alt="" class="circle" width="50px" height="50px">
+            </td>
+                             
+              <td>
+                 <div class="login-form">
+                          <div class="styled-input">
+           
+                              <input type="text" name="qnty" pattern="[0-9]+" required=""/>
+                              <label>Enter Quantity</label> 
+                             </div>
+                             </div>
+                             </td>
+                             <td style="align: initial;">
+                             {{m.measured}}
+                             </td>
+                             <td>
+                              <button class="btn btn-default" style="border-radius: 0px;" type="submit">Save</button>
+                              </td>
+                          
+
+                          </form>
+                          </tr>
+                    
+
+          </tr>
+
+          </table>
+        </div>
+      </div>
+    
+                    {% endifequal %}
+                  {%endfor%}
+                {% endifequal %}
+              {% endfor %}
+            {%endfor%}
+        {%endif%}
+</div>
+</div>
+</div>
+
+     
+        
+<!--         {% if mylist %}
+            {% for m in mylist %}
+              {% for i in item_list %}
+                {% ifequal m.item.id i.id %}
+                  {% for s in supplier_list %}
+                    {% ifequal m.sup.id s.id %}
+                    <ul class="collapsible" data-collapsible="accordion">
+                      <li>
+                        <div class="collapsible-header supllier-card-item-1">
+                          {% if m.sup.picture %}
+                            <img src="{{ m.sup.picture.url }}" class="circle responsive-img img_small" width="25px" height="25px"/>
+                          {%endif%}{{m.sup.phoneno}}
+                          <span>Supplies</span>
+
+                          {% if i.picture %}
+                            <img src="{{ i.picture.url }}" class="circle responsive-img img_small" width="25px" height="25px"/>
+                          {%endif%}
+
+                          <button class="waves-effect waves-light btn dropdown-button supplier-details-btn" data-hover="true" data-activates='supplier-details'>@ ₹  {{m.price}} per {{m.measured}}
+                            <div id='supplier-details' class='dropdown-content'>
+                              <p>The Details Goes Here</p>
+                            </div>
+                          </button>
+                          <button class="waves-effect waves-light btn">Chat</button>
+                        </div>
+                        <div class="collapsible-body supllier-card-chat">
+                          <p>The Chat window goes here</p>
+                        </div>
+                      </li>
+                      
+                    </ul>
+
+                    {% endifequal %}
+                  {%endfor%}
+                {% endifequal %}
+              {% endfor %}
+            {%endfor%}
+        {%endif%}
+
+     </div>
+ -->
+
+
+{% endblock %}

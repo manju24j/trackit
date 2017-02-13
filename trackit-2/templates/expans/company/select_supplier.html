@@ -1,0 +1,414 @@
+   
+{% extends "expans/company/company_base.html" %}
+
+{% load static %}
+
+{% block body_block %}
+
+  {% if form.errors %}
+    <div class="text-danger">Please correct the error{{ form.errors|pluralize }} below.</div>
+    {% endif %}
+<style type="text/css">
+  .row {
+    margin-right: 10px;
+    margin-left: 10px;
+}
+</style>
+        <div class="row myPanel">
+            <div class="login-modal myPanel-in">   
+
+                   <div class="booking-info"> 
+                   <h3> select your item and supplier
+                   </h3><hr>
+                  </div>
+                         <br>
+        <div class="booking-info">
+                         <strong> 
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}"> <h2>{{ message }} </h2></div>
+              {% endfor %}
+              </strong>
+            <br>
+            </div>
+<!--
+             
+                 <div class="booking-info">
+                    <h3>
+                      <input type="radio" id="selectForm" name="frm" required=""> Select Supplier
+                      <input type="radio" id="addForm" name="frm" required=""> Add new supplier
+                    </h3> 
+                 </div><hr>
+
+              
+               <div class="row">
+           
+                <div id='searchbox' style="display: none;">
+           
+                  <div class="login-form">
+                    <form action="/expans/comp_select_supplier/" method="post" enctype="multipart/form-data">
+                       {% csrf_token %}
+                      {% if bad_details %}
+                      <p><strong>something is wrong check</strong></p>
+                      {% elif disabled_account %}
+                      <p><strong> we can't add now..!</strong></p>
+                      {% endif %}
+                        
+                        <div class="input-group add-on" >
+                             <input class="form-control" placeholder="Enter Item" name="select_item" id="select_item" type="text">
+                             <select id='selectitemlist' name='itemid' ></select>
+                        </div>
+
+               
+                        <div class="input-group add-on">
+                            <input class="form-control" placeholder="Search supplier by phone no" name="srch_sup" id="srch_sup" type="text">
+                            <select id='suplist' name="phoneno"></select>
+                        </div>
+
+                        <div class="styled-input">
+                          <input type="text" name="measured" required=""/>
+                          <label>unit of meassurement:</label>
+                          <span></span>
+                        </div>
+
+                        <div class="styled-input">
+                          <input type="text" name="price" pattern="[0-9]+" required=""/>
+                          <label>Unit of price: ₹</label>
+                          <span></span>
+                        </div>
+
+                      <input type="submit" class="btn btn-outline btn-success" value="Save">
+                    </form>
+                  </div>
+                </div>
+              
+
+               <div id="addsupform" style="display: none;">
+                  <div class="login-form">
+                    <form action="/expans/comp_add_supplier/" method="post" enctype="multipart/form-data">
+                       {% csrf_token %}
+                      {% if bad_details %}
+                      <p><strong>something is wrong check</strong></p>
+                      {% elif disabled_account %}
+                      <p><strong> we can't add now..!</strong></p>
+                      {% endif %}
+                        <input type="text" name="category" value="add" style="display: none;">
+               
+                        <div class="input-group add-on" >
+                             <input class="form-control" placeholder="Enter Item" name="srch_item" id="srch_item" type="text">
+                             <select id='itemlistp' name='itemid' ></select>
+                        </div>
+
+                        <div class="styled-input">
+                          <input type="text" name="username" required=""/>
+                          <label>Supplier name</label>
+                          <span></span>
+                        </div>
+                        <div class="styled-input">
+                          <input type="text" name="phoneno" pattern="[0-9]{10}" maxlength="10" required=""/>
+                          <label>phone No</label>
+                          <span></span>
+                        </div>
+
+                        <div class="styled-input">
+                          <input type="text" name="measured" required=""/>
+                          <label>unit of meassurement:</label>
+                          <span></span>
+                        </div>
+
+                        <div class="styled-input">
+                          <input type="text" name="price" pattern="[0-9]+" required=""/>
+                          <label>Unit of price: ₹</label>
+                          <span></span>
+                        </div>
+
+                        <input type="submit" class="btn btn-outline btn-success" value="Save">
+                      <!-- <input type="reset" class="btn btn-outline btn-success" value="Reset">   
+                    </form>
+                  </div>
+              </div> 
+            </div>
+ -->
+                 <div class="login-form">
+                    <form action="/expans/comp_add_supplier/" method="post" enctype="multipart/form-data">
+                       {% csrf_token %}
+                      <!-- Display each form here -->
+                      {% if bad_details %}
+                      <p><strong>something is wrong check</strong></p>
+                      {% elif disabled_account %}
+                      <p><strong> we can't add now..!</strong></p>
+                      {% endif %}
+                        <input type="text" name="category" value="add" style="display: none;">
+               
+                        <div class="styled-input" >
+                             <input type="text" id="project"  required="True" bgcolor="yellow"clour="blue" name="itemid" placeholder="select Item">
+                             
+                        </div>
+
+                        <div class="styled-input">
+                          <input type="text" name="username" required=""/>
+                          <label>Supplier name</label>
+                          <span></span>
+                        </div>
+                        <div class="styled-input">
+                          <input type="text" name="phoneno" pattern="[0-9]{10}" maxlength="10" required=""/>
+                          <label>phone No</label>
+                          <span></span>
+                        </div>
+
+                        <div class="styled-input">
+                          <input type="text" name="measured" required=""/>
+                          <label>unit of meassurement:</label>
+                          <span></span>
+                        </div>
+
+                        <div class="styled-input">
+                          <input type="text" name="price" pattern="[0-9]+" required=""/>
+                          <label>Unit of price: ₹</label>
+                          <span></span>
+                        </div>
+
+                        <input type="submit" class="btn btn-outline btn-success" value="Save">
+                      <!-- <input type="reset" class="btn btn-outline btn-success" value="Reset">    -->
+                    </form>
+                  </div>
+  
+      </div>
+</div>
+  <script>
+      // script for radio button for toggle select
+     $("#selectForm").on('click', function () {
+        $("#searchbox").fadeIn();
+        $("#addsupform").fadeOut();
+     });
+
+     $("#addForm").on('click', function () {
+        $("#searchbox").fadeOut();
+        $("#addsupform").fadeIn();
+     }); 
+  // toggle select close
+
+  //searching for Items 
+    $("#select_item").on('keyup', function () {
+        
+        function getCookie(name) {
+          var cookieValue = null;
+          if (document.cookie && document.cookie != '') {
+              var cookies = document.cookie.split(';');
+              for (var i = 0; i < cookies.length; i++) {
+                  var cookie = jQuery.trim(cookies[i]);
+                  if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                      cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                      break;
+                  }
+              }
+          }
+          return cookieValue;
+      }
+        
+        var itemnme = $("#select_item").val();
+        // console.log(itemnme);
+        var csrf_token = getCookie('csrftoken');
+        $.ajax({
+          url:"../../../expans/get_item_details",
+          data: {data: itemnme, csrfmiddlewaretoken: csrf_token},
+          success: function(gotdata){
+            console.log(gotdata);
+
+            var listitems = "";
+            for (var i=0; i<gotdata.length; i++){
+              console.log("<<");
+              listitems+= "<option value="+gotdata[i].pk+" data-id = "+gotdata[i].pk+"> "+gotdata[i].fields.name+"</option>";
+              $("#selectitemlist").empty();
+              $("#selectitemlist").append(listitems);
+              console.log(">>");
+            }
+          }
+        })
+     });
+
+
+  //searching for Items 
+    $("#srch_item").on('keyup', function () {
+        
+        function getCookie(name) {
+          var cookieValue = null;
+          if (document.cookie && document.cookie != '') {
+              var cookies = document.cookie.split(';');
+              for (var i = 0; i < cookies.length; i++) {
+                  var cookie = jQuery.trim(cookies[i]);
+                  if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                      cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                      break;
+                  }
+              }
+          }
+          return cookieValue;
+      }
+        
+        var itemnme = $("#srch_item").val();
+        // console.log(itemnme);
+        var csrf_token = getCookie('csrftoken');
+        $.ajax({
+          url:"../../../expans/get_item_details",
+          data: {data: itemnme, csrfmiddlewaretoken: csrf_token},
+          success: function(gotdata){
+            console.log(gotdata);
+
+            var listitems = "";
+            for (var i=0; i<gotdata.length; i++){
+              console.log("<<");
+              listitems+= "<option value="+gotdata[i].pk+" data-id = "+gotdata[i].pk+"> "+gotdata[i].fields.name+"</option>";
+              $("#itemlistp").empty();
+              $("#itemlistp").append(listitems);
+              console.log(">>");
+            }
+          }
+        })
+     }); 
+
+
+  //searching for Supplier 
+    $("#srch_sup").on('keyup', function () {
+        
+        function getCookie(name) {
+          var cookieValue = null;
+          if (document.cookie && document.cookie != '') {
+              var cookies = document.cookie.split(';');
+              for (var i = 0; i < cookies.length; i++) {
+                  var cookie = jQuery.trim(cookies[i]);
+                  if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                      cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                      break;
+                  }
+              }
+          }
+          return cookieValue;
+      }
+        
+        var supname = $("#srch_sup").val();
+        var csrf_token = getCookie('csrftoken');
+        $.ajax({
+          url:"../../../expans/get_sup_details",
+          data: {data: supname, csrfmiddlewaretoken: csrf_token},
+          success: function(gotdata){
+            console.log(gotdata);
+            var listsuplier = "";
+            for (var i=0; i<gotdata.length; i++){
+              console.log("<<");
+              listsuplier+="<option value="+gotdata[i].fields.phoneno+" data-image='../../../media/"+gotdata[i].fields.picture+"'>" +gotdata[i].fields.phoneno+"<option>";
+              $("#suplist").empty();
+              $("#suplist").append(listsuplier);
+              console.log(">>"); 
+
+            }
+          }
+        })
+     }); 
+
+
+
+  </script>
+
+<!--- Imgage auto complete files -->
+<script src='http://code.jquery.com/jquery-1.11.0.min.js'></script>
+<script src='http://code.jquery.com/ui/1.10.4/jquery-ui.min.js'></script>
+
+  <script> (function($){
+  
+  var $project = $('#project');
+
+  var projects = [
+    {
+      value: "1",
+      label: "Water-can",
+      desc: "",
+      icon: "water-can.png"
+    },
+    {
+      value: "2",
+      label: "Tea-coffe",
+      desc: "",
+      icon: "tea.png"
+    },
+    {
+      value: "3",
+      label: "Bun",
+      desc: "",
+      icon: "bun.png"
+    },{
+      value: "4",
+      label: "Chakuli",
+      desc: "",
+      icon: "chakuli.png"
+    },
+    {
+      value: "5",
+      label: "Biscuit",
+      desc: "",
+      icon: "biscuit.png"
+    },
+    {
+      value: "6",
+      label: "Chocolates",
+      desc: "",
+      icon: "chocolate.png"
+    },
+    {
+      value: "7",
+      label: "Dry-Fruits",
+      desc: "",
+      icon: "dryfruits.png"
+    },
+    {
+      value: "8",
+      label: "Juice",
+      desc: "",
+      icon: "juice.png"
+    },
+    {
+      value: "9",
+      label: "Tissue paper",
+      desc: "",
+      icon: "tiss.png"
+    },
+    {
+      value: "10",
+      label: "Bajji",
+      desc: "",
+      icon: "bajji.png"
+    }
+
+  ];
+  
+  $project.autocomplete({
+    minLength: 0,
+    source: projects,
+    focus: function( event, ui ) {
+      $project.val( ui.item.label );
+      return false;
+    }
+  });
+  
+  $project.data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+    
+    var $li = $('<li>'),
+        $img = $('<img>');
+
+
+    $img.attr({
+      src: "{% static 'item_pics_list/'%}" + item.icon,
+      alt: item.label
+    });
+
+    $li.attr('data-value', item.label);
+    $li.append('<a href="#">');
+    $li.find('a').append($img).append(" " + item.label);    
+
+    return $li.appendTo(ul);
+  };
+
+
+})(jQuery);
+
+</script>
+{% endblock %}

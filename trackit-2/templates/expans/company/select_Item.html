@@ -1,0 +1,46 @@
+   
+{% extends "expans/company/company_base.html" %}
+
+{% load static %}
+
+{% block body_block %}
+    <!-- section -->
+
+              {% if item_list %}
+
+                 {% for item in item_list %}
+
+    <div class="modal-dialog">
+<!-- Modal content-->
+    <div class="modal-content">
+      
+      <div class="modal-body">
+      <p>                    
+                            <form class="form-supplier" style="margin: 0px 5px -10px;" id="user_form" method="post" action="/expans/select_supplier/{{item.id}}/"
+                          enctype="multipart/form-data">
+                            {% csrf_token %}
+
+                            <li class="collection-item avatar">
+                            {% if item.picture %}
+                            <img src="{{ item.picture.url }}" alt="" class="circle" width="25px" height="25px">
+                            {%endif%} 
+                            {{item.name}}
+                            <!-- Display each form here -->
+                            {% if bad_details %}
+                            <strong>something is wrong check</strong>
+                            {% endif %}
+                             <button type="subbmit" class="btn btn-default" >select</button>
+                            </li>
+ 
+                          </form>
+      </p>
+                                            
+          </div>      
+        </div>
+      </div>
+              
+         {% endfor %}
+                    {% endif %}                    
+      
+
+{% endblock %}

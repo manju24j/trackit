@@ -1,0 +1,57 @@
+{% extends "expans/base.html" %}
+
+{% block title %}
+{% endblock %}
+
+{% block body_block %}
+
+<div class="row myPanel">
+  <div class="login-modal myPanel-in">   
+    <div class="login-modal">   
+        <div class="booking-info">
+          <h3>Track-it</h3>
+        </div>
+        <div class="login-form">
+          <form action="/expans/login/" method="post"  enctype="multipart/form-data">
+                {% csrf_token %}
+                <!-- Display each form here -->
+                {% if bad_details %}
+                <p><strong>Your username or password were incorrect!</strong></p>
+                {% elif disabled_account %}
+                <p><strong> we can't add now..!</strong></p>
+                {% endif %}
+                     <div class="styled-input">
+                      <input type="text" name="username" required=""/>
+                      <label>Username</label>
+                      <span></span>
+                    </div>
+                    <div class="styled-input">
+                      <input type="password" name="password" required=""> 
+                      <label>Password</label>
+                      <span></span>
+                    </div> 
+              <!--    <div class="wthree-text"> 
+                                <ul> 
+                                  <li>
+                                    <input type="checkbox" id="brand" value="">
+                                    <label for="brand"><span></span> Remember me ?</label>  
+                                  </li>
+                                  <li> <a href="#">Forgot password?</a> </li>
+                                </ul>
+                                <div class="clear"> </div>
+                              </div> 
+               -->  <input type="submit" value="Sign In" required="">   
+          </form>
+                          
+                            <p>Don’t have an account ? <br>
+                            
+                            <a href="/expans/register/">Register</a>
+                            
+                            </p>
+        </div> 
+      </div>
+             
+    </div>
+</div>
+
+{% endblock %}
