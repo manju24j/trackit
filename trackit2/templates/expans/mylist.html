@@ -1,0 +1,74 @@
+
+{% extends "expans/base.html" %}
+
+{% load static %}
+
+{% block body_block %}
+
+  <div class="row">
+    <div class="col col s14 m7 offset-m3">
+        <div class="col col s12 m10 offset-m">
+
+        {% if mylist %}
+          {% if item_list %}
+             {% for item in mylist %}
+                {% for image in item_list %}
+                 
+                  {% ifequal image.id item.item %}
+
+
+                    <ul class="collapsible" data-collapsible="accordion">
+                      <li>
+                        <div class="collapsible-header supllier-card-item-1">
+                          {% if item.sup.picture %}
+                            <img src="{{ item.sup.picture.url }}" class="circle responsive-img img_small"/>
+                          {%endif%}{{item.sup}}
+                          <span>Supplies</span>
+
+                          {% if image.picture %}
+                            <img src="{{ image.picture.url }}" class="circle responsive-img img_small"/>
+                          {%endif%}
+
+                          <button class="waves-effect waves-light btn dropdown-button supplier-details-btn" data-hover="true" data-activates='supplier-details'>@ ₹  {{item.price}} per {{item.measured}}
+                            <div id='supplier-details' class='dropdown-content'>
+                              <p>The Details Goes Here</p>
+                            </div>
+                          </button>
+                          <button class="waves-effect waves-light btn">Chat</button>
+                        </div>
+                        <div class="collapsible-body supllier-card-chat">
+                          <p>The Chat window goes here</p>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="collapsible-header">
+                          <i class="material-icons">filter_drama</i>
+                        </div>
+                        <div class="collapsible-body">
+                          <p>Lorem ipsum dolor sit amet.</p>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="collapsible-header">
+                          <i class="material-icons">filter_drama</i>
+                        </div>
+                        <div class="collapsible-body">
+                          <p>Lorem ipsum dolor sit amet.</p>
+                        </div>
+                      </li>
+                      
+                    </ul>
+
+                     {% endifequal %}
+                {% endfor %}
+              {% endfor %}
+            {% endif %}
+        {% endif %}
+
+
+      </div>
+    </div>
+  </div>
+
+
+{% endblock %}

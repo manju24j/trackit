@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Simple Vendor app</title>
+	<!-- lib : Materialize css -->
+	<link rel="stylesheet" type="text/css" href="lib/css/materialize.css">
+	<!-- lib : Icon font -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!-- custom css -->
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+
+</head>
+<body>
+	<div id="vendorApp">
+
+		<!-- header menu -->
+		<nav>
+			<div class="nav-wrapper">
+				<a href="#" class="brand-logo"><i class="material-icons">cloud</i>Logo</a>
+				<ul id="nav-mobile" class="right hide-on-med-and-down">
+					<li><a href="sass.html">nav1</a></li>
+					<li><a href="badges.html">nav2</a></li>
+					<li><a href="collapsible.html">nav3</a></li>
+				</ul>
+			</div>
+		</nav>
+		<!-- section -->
+  		<div class="row">
+        <div class="col s12 m6 offset-m3">
+          <ul class="collection">
+            <li class="collection-item avatar">
+              <h4>Add Quantity</h4>
+            </li>
+            <li class="collection-item avatar">
+              <img src="img/img.jpg" alt="" class="circle">
+              <div class="input-field">
+                <input id="last_name" type="number" class="validate input_form black-clr">
+                <label for="last_name">Enter Quantity</label>
+              </div>
+              <a href="#!" class="secondary-content"><i class="material-icons">done</i></a>
+            </li>
+            <li class="collection-item avatar">
+              <img src="img/img.jpg" alt="" class="circle">
+              <div class="input-field">
+                <input id="last_name" type="number" class="validate input_form black-clr">
+                <label for="last_name">Enter Quantity</label>
+              </div>
+              <a href="#!" class="secondary-content"><i class="material-icons">done</i></a>
+            </li>
+            <li class="collection-item avatar">
+              <img src="img/img.jpg" alt="" class="circle">
+              <div class="input-field">
+                <input id="last_name" type="number" class="validate input_form black-clr">
+                <label for="last_name">Enter Quantity</label>
+              </div>
+              <a href="#!" class="secondary-content"><i class="material-icons">done</i></a>
+            </li>
+            <li class="collection-item avatar">
+              <img src="img/img.jpg" alt="" class="circle">
+              <div class="input-field">
+                <input id="last_name" type="number" class="validate input_form black-clr">
+                <label for="last_name">Enter Quantity</label>
+              </div>
+              <a href="#!" class="secondary-content"><i class="material-icons">done</i></a>
+            </li>
+     </ul>    
+   </div>
+  </div>
+
+ </div>
+	<!-- lib : Juery -->
+	<script type="text/javascript" src="lib/js/jquery.js"></script>
+	<!-- lib : Materialize js -->
+	<script type="text/javascript" src="lib/js/materialize.js"></script>
+</body>
+</html>

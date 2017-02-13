@@ -1,0 +1,171 @@
+{% extends "expans/base.html" %}
+
+{% block title %}
+{% endblock %}
+
+{% block body_block %}
+
+<div class="row myPanel">
+    <div class="login-modal myPanel-in">   
+    <br>
+        <div class="booking-info"> 
+            {% if registered %}
+            <h3><p> Thank you for registering.</p>
+
+            <p><a href="/expans/login/">Login</a></p></h3>
+            <hr>
+        </div>
+            {% else %}
+             <br>
+        <div class="booking-info">
+            <strong> 
+              {% for message in messages %}
+              <div class="alert alert-{{ message.tags }}"> <h2>{{ message }} </h2></div>
+              {% endfor %}
+            </strong>
+            <br>
+            <h3>
+            <input type="radio" id="companyForm" name="frm" required=""> Register as Company
+            <input type="radio" id="supplierForm" name="frm" required=""> Register as Supplier
+            </h3> 
+        </div>
+           <hr>
+        <div class="row">   
+          <div id="company" style="display: none;">
+            <div class="login-form signup-form">
+              <form action="/expans/register/" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                  <!-- Display each form here -->
+                  {% if bad_details %}
+                    <p><strong>something is wrong check</strong></p>
+                    {% elif disabled_account %}
+                      <p><strong> we can't add now..!</strong></p>
+                      {% endif %}
+                        <div class="styled-input">
+                          <input type="text" name="username" required=""/>
+                            <label>Company Name</label>
+                            <span></span>
+                          </div>
+
+                              <!--<div class="styled-input">
+                                <input type="text" name="email" required=""/>
+                                <label>Email</label>
+                                <span></span>
+                              </div>
+                              <div class="styled-input">
+                                <input type="text" name="address" required=""/>
+                                <label>Address</label>
+                                <span></span>
+                              </div>-->
+
+                              <div class="styled-input">
+                                <input type="text" name="phoneno" pattern="[0-9]{10}" maxlength="10" required=""/>
+                                <label>phone No</label>
+                                <span></span>
+                              </div>
+
+                              <div class="styled-input">
+                                <input type="password" name="password" required=""> 
+                                <label>Password</label>
+                                <span></span>
+                              </div>
+                              <div class="styled-input">
+                              <input type="text" name="people" pattern="[0-9]+" required=""/>
+                              <label>Number of people in your company</label> 
+                             </div>
+                             <div class="styled-input">
+                             pay option: 
+                             <select name="paydate" style="padding: 0px 160px;">
+                                <option value="weekly">For weekly once</option>
+                                <option value="15 Days">For 15 Days once</option>
+                                <option value="monthly">For Monthly once</option>
+                              </select>                              
+                             </div>                       
+                              <div class="styled-input">
+                                <input type="text" name="category" value="c" style="display: none;"> 
+                                <span></span>
+                              </div>  
+                            <!--<div class="wthree-text"> 
+                                <input type="checkbox" id="brand1" value="" >
+                                <label for="brand1"><span></span>I accept the terms of use</label> 
+                              </div>-->   
+                            <input type="submit" value="Sign Up">   
+                        </form>
+                    </div>
+                </div>
+              
+
+               <div id="supplier" style="display: none;">
+                  <div class="login-form">
+                        <form action="/expans/register/" method="post" enctype="multipart/form-data">
+                          {% csrf_token %}
+                          <!-- Display each form here -->
+                          {% if bad_details %}
+                          <p><strong>something is wrong check</strong></p>
+                          {% elif disabled_account %}
+                          <p><strong> we can't add now..!</strong></p>
+                          {% endif %}
+                              <div class="styled-input">
+                                <input type="text" name="username" required=""/>
+                                <label>Supplier name</label>
+                                <span></span>
+                              </div>
+                              <!--                   <div class="styled-input">
+                                <input type="text" name="semail" required=""/>
+                                <label>Email</label>
+                                <span></span>
+                              </div>
+                              <div class="styled-input">
+                                <input type="text" name="saddress" required=""/>
+                                <label>Address</label>
+                                <span></span>
+                              </div>--> 
+                              <div class="styled-input">
+                                <input type="text" name="phoneno" pattern="[0-9]{10}" maxlength="10" required=""/>
+                                <label>phone No</label>
+                                <span></span>
+                              </div>
+
+                              <div class="styled-input">
+                                <input type="password" name="password" required=""> 
+                                <label>Password</label>
+                                <span></span>
+                              </div>  
+                              <div class="styled-input">
+                                <input type="text" name="category" value="s" style="display: none;">
+                                <span></span>
+                              </div>  
+
+                            <!-- <div class="wthree-text"> 
+                                <input type="checkbox" id="brand1" value="">
+                                <label for="brand1"><span></span>I accept the terms of use</label> 
+                              </div>
+                            -->
+                             <input type="submit" value="Sign Up">   
+                            </form>
+
+                  </div>
+                </div> 
+        </div>
+            {% endif %}
+    </div>
+
+</div>
+
+  <script>
+    // SCRIPT FOR RADIO BUTTON FOR TOGGLE SELECT
+   $("#companyForm").on('click', function () {
+      $("#company").fadeIn();
+      $("#supplier").fadeOut();
+   });
+
+   $("#supplierForm").on('click', function () {
+      $("#company").fadeOut();
+      $("#supplier").fadeIn();
+   }); 
+// TOGGLE CLOSE
+
+
+  </script>
+
+{% endblock %}

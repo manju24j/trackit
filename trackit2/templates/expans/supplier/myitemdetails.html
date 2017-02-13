@@ -1,0 +1,300 @@
+
+{% extends "expans/supplier/supplier_base.html" %}
+
+{% load static %}
+{% block body_block %}
+  <style type="text/css">
+    .row {
+        margin-right: 10px;
+        margin-left: 10px;
+    }
+    a {
+        color: #a909ba;
+        text-decoration: none;
+    }
+    .nav-pills > li {
+        float: center;
+    }
+    .nav > li > a {
+        position: relative;
+        display: block;
+        padding: 5px 70px;
+    }
+  </style>
+
+<script type="text/javascript">
+  function sh(getId){
+     // alert(getId);
+    $('.'+getId).toggleClass('testshow');
+  }
+</script>
+
+<body>
+       
+
+<div class="row myPanel">
+<div class="panel panel-default text-center myPanel-in">
+       
+    <div class="panel panel-default panel-floating panel-floating-inline">
+    <div class="panel-body">
+      <table class="table table-striped">
+        <tr>
+          <td>
+            <div class="form-inline pull-left">
+            <img src="{{ mylist1.item.picture.url }}" class="img-circle" width="35" height="35" /> 
+            <h3><span>{{mylist1.item}}</span></h3>
+            </div>
+            <div class="form-inline pull-left">
+              <p class="text-muted"><strong>Supplies to </strong></p>
+            </div>     
+            <div class="form-inline pull-left">
+            <img src="{{ mylist1.org.picture.url }}" class="img-circle" width="35" height="35"/>    
+              <h3><span>{{mylist1.org.user}}</span></h3>
+              <p class="text-muted"><h3><small>phone :{{mylist1.org.phoneno}} </small></h3></p>
+            </div>
+          </td>
+          <td>
+          <div class="form-inline pull-left">
+            @ ₹  {{mylist1.price}} per {{mylist1.measured}}
+            </div>
+          </td>
+          <td>
+            <div class="panel-actions">
+             <div class="form-inline pull-left">
+              <a href="#!" class="secondary-content">Chat/message</a>
+            </div>
+            </div>
+          </td>
+        </tr>
+
+      </table>
+    </div>
+    </div>
+
+    <div class="row">
+    <table class="table table-striped">
+      <tr>
+        <td>
+            <div class="form-inline">
+             <img src="{{ mylist1.item.picture.url }}" class="img-circle" width="35" height="35"/>  
+            </div>
+        </td>
+
+        <td>
+            <div class="form-inline"> 
+              <p>Total Qnty Till Now </p> <strong> {{payment.qnty}}</strong>          
+            </div>
+        </td>
+          <td>
+            <div class="form-inline"> 
+              <p>Total Amount</p><strong>₹ {{payment.total}}</strong>          
+                   
+            </div>
+        </td>
+      
+        <td>
+            <div class="form-inline">
+            <p>Total Advance amount:</p><strong>₹ {{payment.balance}}</strong>
+            </div>
+        </td>
+        <td>
+            <div class="form-inline">
+            <p> due amount:</p><strong>₹ {{payment.due}}</strong>
+            </div>
+        </td>
+      </tr>
+
+        <tr>
+        <form class="form-supplier"  method="post" action="/expans/supplier_add_advance/{{mylist1.id}}/"enctype="multipart/form-data">
+            
+          {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}"> <h3>{{ message }} </h3></div>
+              {% endfor %}
+            </strong>
+            <td>
+            <h5>Have u taken advance</h5>
+          </td>
+ 
+         {% csrf_token %}
+           <!-- Display each form here -->
+            {% if bad_details %}
+              <strong>something is wrong check</strong>
+            {% elif disabled_account %}
+              <strong> we can't add now..!</strong>
+            {% endif %} 
+            <td>
+                <div class="login-form">
+                  <div class="styled-input">
+                    <input type="text" name="advance" pattern="[0-9]+" required=""/>
+                    <label>Enter advance taken</label> 
+                  </div>
+                </div>
+            </td>
+            <td>
+            <button class="btn btn-default" style="border-radius: 0px;" type="submit">Save</button>
+          </td>
+          </form>
+      </tr>
+
+    </table>
+    </div>
+
+<hr>
+ <!-- Bootstrap -->
+
+    <ul class="nav nav-pills">
+  <li class="active"><a data-toggle="pill" href="#home">Today</a></li>
+  <li><a data-toggle="pill" href="#menu1">last one week</a></li>
+  <li><a data-toggle="pill" href="#menu2">this Month</a></li>
+    </ul>
+<hr>
+  <div class="tab-content">
+    <div id="home" class="tab-pane fade in active">
+       <strong>{{day}} Todays Transaction</strong>
+                  {% if mylist %}
+                    {% if transaction_list1 %}
+                <table class="table table-striped">
+                   <th style="width: 300px">company</th>
+
+                   <th style="width: 300px">Date</th>
+                    <th style="width:300px;"> Items</th>
+                    <!-- <th style="width: 600px;"> Date</th> -->
+                    <th style="width:300px;">No qnty</th>
+                      <th style="width:900px">total of the day</th>
+                           {% for t in transaction_list1 %}
+                            {% for item in mylist %}
+                             
+                             {% ifequal  item.id t.mylist_id %}
+
+                              {% for image in item_list %}
+
+                                {% ifequal t.mylist.item.id image.id %}
+
+                                 {% if image.picture %}
+                            <tr>
+                             <td>
+                                <img src="{{ item.org.picture.url }}" class="img-circle" width="35" height="35"/><p><strong>{{item.org.user}}</strong></p>
+                              </td>
+                             
+                              <td>{{t.date.day}}/{{t.date.month}}/{{t.date.year}}<small><p>{{t.date.time}}</p></small>
+                              </td>
+                              <td>
+                                <img src="{{ image.picture.url }}" class="img-circle" width="35" height="35"/>
+                              </td>
+                                {%endif%}
+                                {%endifequal%}
+                              {%endfor%}
+                              <!-- <td style="width: 50px">{{t.date}}</td> -->
+                              <td style="width: 60px;"> {{ t.qnty}}
+                              </td>
+                              <td style="width: 60px;">  ₹ {{ t.total}}
+                              </td>
+                            </tr>
+                              {%endifequal%}
+                            {% endfor %}
+                          {% endfor %}
+                        {% endif %}                                
+                      {% endif %}
+                     <h3> <p> Total Qnty given Today <strong>{{count1}}</strong></p></h3>
+                       </table>
+    </div>
+    <div id="menu1" class="tab-pane fade">
+        <strong>From {{week}} one week Transaction</strong>
+        {% if mylist %}
+                {% if transaction_list3 %}
+                <table class="table table-striped">
+                   <th style="width: 300px">company</th>
+
+                   <th style="width: 300px">Date</th>
+                    <th style="width:300px;"> Items</th>
+                    <!-- <th style="width: 600px;"> Date</th> -->
+                    <th style="width:300px;">No qnty</th>
+                      <th style="width:900px">total of the day</th>
+                           {% for t in transaction_list3 %}
+                            {% for item in mylist %}
+                             
+                             {% ifequal  item.id t.mylist_id %}
+
+                              {% for image in item_list %}
+
+                                {% ifequal t.mylist.item.id image.id %}
+
+                                 {% if image.picture %}
+                            <tr>
+                             <td>
+                                <img src="{{ item.org.picture.url }}" class="img-circle" width="35" height="35"/><p><strong>{{item.org.user}}</strong></p>
+                              </td>
+                             
+                          <td>{{t.date.day}}/{{t.date.month}}/{{t.date.year}}<small><p>{{t.date.time}}</p></small>
+                          </td>
+                          <td><img src="{{ image.picture.url }}" class="img-circle" width="25" height="25"/>
+                          </td>
+                              {%endif%}
+                          {%endifequal%}
+                       {%endfor%}
+                          <td style="width: 50px;"> {{ t.qnty}}</td>
+                          <td style="width: 50px;">  ₹ {{ t.total}}</td>
+                          </tr>
+                     {%endifequal%}
+                  {% endfor %}
+                  {% endfor %}
+                {% endif %}                                
+                {% endif %}
+                <h3><p>Total Qnty supplied for week <strong>{{count3}}</strong></p></h3>
+                  </table>
+    </div>
+
+    <div id="menu2" class="tab-pane fade">
+    
+          <strong>{{day}} Month Transaction</strong>
+                   <h3> <p>Total Qnty of this month <strong>{{count4}}</strong></p></h3>
+
+                {% if mylist %}
+                 {% if transaction_list4 %}
+                 <table class="table table-striped">
+                     <th style="width: 300px">company</th>
+
+                   <th style="width: 300px">Date</th>
+                    <th style="width:300px;"> Items</th>
+                    <!-- <th style="width: 600px;"> Date</th> -->
+                    <th style="width:300px;">No qnty</th>
+                      <th style="width:900px">total of the day</th>
+                           {% for t in transaction_list4 %}
+                            {% for item in mylist %}
+                             
+                             {% ifequal  item.id t.mylist_id %}
+
+                              {% for image in item_list %}
+
+                                {% ifequal t.mylist.item.id image.id %}
+
+                                 {% if image.picture %}
+                            <tr>
+                             <td>
+                                <img src="{{ item.org.picture.url }}" class="img-circle" width="35" height="35"/><p><strong>{{item.org.user}}</strong></p>
+                              </td>
+                             
+                        <td>{{t.date.day}}/{{t.date.month}}/{{t.date.year}}<small><p>{{t.date.time}}</p></small>
+                          </td>
+                
+                           <td><img src="{{ image.picture.url }}" class="img-circle" width="25" height="25"/>
+                           </td>
+                                {%endif%}
+                              {%endifequal%}
+                            {%endfor%}
+                          <td style="width: 50px;"> {{ t.qnty}}</td>
+                          <td style="width: 50px;">  ₹ {{ t.total}}</td>
+                          </tr>
+                        {%endifequal%}
+                  {% endfor %}
+                  {% endfor %}
+               {% endif %}                                
+               {% endif %}
+                </table>
+    </div>
+  </div>  
+</div>
+</div>
+</body>
+
+{% endblock %}

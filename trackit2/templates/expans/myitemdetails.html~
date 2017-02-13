@@ -1,0 +1,235 @@
+
+{% extends "expans/base.html" %}
+
+{% load static %}
+
+{% block body_block %}
+<style type="text/css">
+           .well {
+            background-color: #ffffff;
+          
+            border-radius: 10px;
+        } 
+        .table {
+    width: 100%;
+    max-width: 35%;
+    margin-bottom: 20px;
+
+}
+.well {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: unset;
+}
+
+</style>
+ <h6></h6>
+ <div class="col-md-offset-3">
+ <div class="row">
+      <div class="col-lg-4 col-md-6">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <div class="row">
+              <div class="col-xs-3">
+                <img src="{{ mylist1.sup.picture.url }}" class="img-circle" width="50" height="50"/>
+                    {{mylist1.sup}}
+                  <br><br>
+                  <img src="{{ item.picture.url }}" class="img-circle" width="50" height="50"/>  
+                      {{item.name}}
+              </div>
+              <div class="col-xs-9 text-right">
+                Qnty Till Now 
+                <div class="huge">{{count}}</div>
+                  Rs ₹: {{mylist1.price}}<hr>
+                <div>Total= ₹ {{total}}</div>
+              </div>
+            </div>
+          </div>
+          <a href="/rango/payment/">
+          <div class="panel-footer">
+            <span class="pull-left">Payment</span>
+            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+            <div class="clearfix"></div>
+          </div>
+          </a>
+       </div>
+     </div>
+                  
+  </div> 
+    <!-- Bootstrap -->
+   <!-- start of // transaction details -->
+    <div class="span7">
+        <h4>Transaction details</h4>
+        <div class="well sidebar-nav">
+          <div class="container">
+            <ul class="nav nav-pills">
+              <li class="active"><a data-toggle="tab" href="#home">Today</a></li>
+              <li><a data-toggle="tab" href="#menu1">Yesterday</a></li>
+              <li><a data-toggle="tab" href="#menu2">one week</a></li>
+              <li><a data-toggle="tab" href="#menu3">one Month</a></li>
+            </ul>
+
+            <div class="tab-content">
+              <div id="home" class="tab-pane fade in active">
+                <h5>{{now}}Todays Transaction</h5>
+                <div class="span6">
+                  {% if mylist %}
+                    {% if transaction_list1 %}
+                      <table  class="table table-striped">
+                   <th style="width: 300px">Date</th>
+                    <th style="width:300px;"> Items</th>
+                    <!-- <th style="width: 600px;"> Date</th> -->
+                    <th style="width:300px;">No qnty</th>
+                      <th style="width:900px">total of the day</th>
+                       {% for t in transaction_list1 %}
+                        {% for item in mylist %}
+                         {% ifequal  item.id t.mylist_id %}  
+                          {% for image in item_list %}
+                            {% ifequal t.mylist.item image.id %}
+                             {% if image.picture %}
+                        <tr>
+                          <td>{{t.date.day}}/{{t.date.month}}/{{t.date.year}}<small><p>{{t.date.time}}</p></small>
+                          </td>
+                          <td>
+                            <img src="{{ image.picture.url }}" class="img-circle" width="35" height="35"/>
+                          </td>
+                            {%endif%}
+                            {%endifequal%}
+                          {%endfor%}
+                          <!-- <td style="width: 50px">{{t.date}}</td> -->
+                          <td style="width: 60px;"> {{ t.qnty}}
+                          </td>
+                          <td style="width: 60px;">  ₹ {{ t.total}}
+                          </td>
+                        </tr>
+                          {%endifequal%}
+                        {% endfor %}
+                      {% endfor %}
+                    {% endif %}                                
+                  {% endif %}
+                   </table>
+               </div><!--/ close span -->
+              </div><!--/ close home id -->
+
+              <div id="menu1" class="tab-pane fade">
+                <h5>yesterday's Transaction </h5>
+                <div class="span6">
+                {% if mylist %}
+                 {% if transaction_list2 %}
+                 
+                    <table class="table table-striped">
+                   <th style="width: 300px">Date</th>
+                    <th style="width:300px;"> Items</th>
+                    <!-- <th style="width: 600px;"> Date</th> -->
+                    <th style="width:300px;">No qnty</th>
+                      <th style="width:900px">total of the day</th>
+                       {% for t in transaction_list2 %}
+                        {% for item in mylist %}
+                         {% ifequal  item.id t.mylist_id %}  
+                          {% for image in item_list %}
+                            {% ifequal t.mylist.item image.id %}
+                             {% if image.picture %}
+                        <tr>
+                          <td>{{t.date.day}}/{{t.date.month}}/{{t.date.year}}<small><p>{{t.date.time}}</p></small>
+                          </td>
+                          <td><img src="{{ image.picture.url }}" class="img-circle" width="25" height="25"/>
+                            </td>{%endif%}
+                                    {%endifequal%}{%endfor%}
+                          <td style="width: 50px;"> {{ t.qnty}}</td>
+                          <td style="width: 50px;">  ₹ {{ t.total}}</td>
+                          </tr>
+                     
+                         {%endifequal%}
+                         {% endfor %}
+                         {% endfor %}
+                         {% endif %}                                
+                         {% endif %}
+                    </table>
+                 </div><!--/ close span -->
+              </div><!--/ close menu1 -->
+
+              <div id="menu2" class="tab-pane fade">
+                <h5> weekly Transaction </h5>
+                <div class="span6">
+                {% if mylist %}
+                {% if transaction_list3 %}
+                <table class="table table-striped">
+                   <th style="width: 300px">Date</th>
+                    <th style="width:300px;"> Items</th>
+                    <!-- <th style="width: 600px;"> Date</th> -->
+                    <th style="width:300px;">No qnty</th>
+                      <th style="width:900px">total of the day</th>
+                       {% for t in transaction_list3 %}
+                        {% for item in mylist %}
+                         {% ifequal  item.id t.mylist_id %}  
+                          {% for image in item_list %}
+                            {% ifequal t.mylist.item image.id %}
+                             {% if image.picture %}
+                        <tr>
+                          <td>{{t.date.day}}/{{t.date.month}}/{{t.date.year}}<small><p>{{t.date.time}}</p></small>
+                          </td>
+                          <td><img src="{{ image.picture.url }}" class="img-circle" width="25" height="25"/>
+                          </td>
+                              {%endif%}
+                          {%endifequal%}
+                       {%endfor%}
+                          <td style="width: 50px;"> {{ t.qnty}}</td>
+                          <td style="width: 50px;">  ₹ {{ t.total}}</td>
+                          </tr>
+                     {%endifequal%}
+                  {% endfor %}
+                  {% endfor %}
+                {% endif %}                                
+                {% endif %}
+                  </table>
+                </div><!--/ close span --> 
+             </div><!--/ close menu2 -->
+
+              <div id="menu3" class="tab-pane fade">
+               <h5> monthly Transaction </h5>
+               <div class="span6">
+                {% if mylist %}
+                 {% if transaction_list4 %}
+                 <table class="table table-striped">
+                   <th style="width: 300px">Date</th>
+                    <th style="width:300px;"> Items</th>
+                    <!-- <th style="width: 600px;"> Date</th> -->
+                    <th style="width:300px;">No qnty</th>
+                      <th style="width:900px">total of the day</th>
+                       {% for t in transaction_list4 %}
+                        {% for item in mylist %}
+                         {% ifequal  item.id t.mylist_id %}  
+                          {% for image in item_list %}
+                            {% ifequal t.mylist.item image.id %}
+                             {% if image.picture %}
+                        <tr>
+                          <td>{{t.date.day}}/{{t.date.month}}/{{t.date.year}}<small><p>{{t.date.time}}</p></small>
+                          </td>
+                
+                           <td><img src="{{ image.picture.url }}" class="img-circle" width="25" height="25"/>
+                           </td>
+                                {%endif%}
+                              {%endifequal%}
+                            {%endfor%}
+                          <td style="width: 50px;"> {{ t.qnty}}</td>
+                          <td style="width: 50px;">  ₹ {{ t.total}}</td>
+                          </tr>
+                        {%endifequal%}
+                  {% endfor %}
+                  {% endfor %}
+               {% endif %}                                
+               {% endif %}
+                </table>
+                </div><!--/ close span -->
+              </div><!--/ close menu3 -->
+            </div><!--/ close tab-content -->
+         
+          </div><!--/ close container  -->
+        </div> <!--/ close well sidebar-nav -->
+      </div><!--/ close span-6(main span) -->  
+ <!-- end of // transaction details -->
+
+
+
+{% endblock %}
+

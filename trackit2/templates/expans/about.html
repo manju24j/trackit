@@ -1,0 +1,16 @@
+{% extends "expans/base.html" %}
+
+{% load static %}
+
+{% block title %}About{% endblock %}
+
+{% block body_block %}
+<div class="hero-unit">
+    <h1>About office</h1>
+    This is <strong>Office Expens's about page</strong>.<br/>
+
+    You've visited the site on <strong>{{ visit_count }} occasion(s).</strong><br/>
+<br/>
+    <img src="{% static "expans.jpg" %}" alt="Office-expens" />
+</div>
+{% endblock %}
