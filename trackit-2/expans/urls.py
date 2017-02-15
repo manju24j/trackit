@@ -31,7 +31,7 @@ urlpatterns = patterns('',
 	url(r'^company_transaction/$',views.company_transaction,name='company_transaction'),
 	url(r'^payment/$',views.payment,name='payment'),
 	url(r'^companymyitemdetails/(?P<mylistid>\d+)/$',views.companymyitemdetails,name='companymyitemdetails'),
-
+    url(r'^company_add_advance/(?P<mylistid>\d+)/$',views.company_add_advance,name='company_add_advance'),
 # SUPLIER SIDE OPERATIONS===================>
 
 	url(r'^supplier/$',views.supplier,name='supplier'),
@@ -53,6 +53,10 @@ urlpatterns = patterns('',
 
 #	url(r'^add_oraganization/$',views.add_oraganization,name='add_oraganization'),
     url(r'^supplier_add_advance/(?P<mylistid>\d+)/$',views.supplier_add_advance,name='supplier_add_advance'),
+#================================================================================
+    url(r'^dashboard/$',views.dashboard,name='dashboard'),
+
+
 	
 #=================== API VIEWS URL=========================================>
 

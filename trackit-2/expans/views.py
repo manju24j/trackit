@@ -215,12 +215,36 @@ def company_add_entry(request,mylistid):
         my=Mylist.objects.get(id=mylistid)
         qnty=int(request.POST['qnty'])
         price=my.price
-        total=qnty*int(price)
-        trasaction_obj  =Transaction(mylist=my,qnty=qnty,total=total)
+        total=qnty*float(price)
+
+        trasaction_obj =Transaction(mylist=my,qnty=qnty,total=total)
         trasaction_obj.save()
+        
+        count=0
+        trans=Transaction.objects.filter(mylist_id=mylistid)
+        for t in trans:
+            count=count+t.qnty
+
+        payment2=Payment.objects.filter(mylist=mylistid)
+        payment=payment2.latest('date')
+        
+        payment_list=Payment.objects.filter(mylist=mylistid)
+        total=0
+        for adv in payment_list:
+            total=total+adv.advance
+        balance=total
+
+        total1=count*float(price)
+        due=payment.balance-total1
+
+        pay_obj = Payment(mylist=my,balance=balance,due=due,qnty=count,total=total1)
+        pay_obj.save()
+        
+
         qntty = str(qnty)
-        item=str(my.item)
+        company=str(my.org.user)
         measured=str(my.measured)
+        item=str(my.item)
         messages.success(request, "You Added "+qntty+" "+measured+" of "+item+" ")
         return HttpResponseRedirect('/expans/company/')
         # return render_to_response('expans/company/company_home.html',context_dict,context)
@@ -797,75 +821,79 @@ def suppliermyitemdetails(request,mylistid):
 
 @login_required
 def companymyitemdetails(request,mylistid):
+    try:
+        context = RequestContext(request)
+        mylist1=Mylist.objects.get(id=mylistid)
+        
+        context_dict = {
+                    'mylist1':mylist1, 
+                         }
+        payment2=Payment.objects.filter(mylist=mylistid)
+        payment=payment2.latest('date')
+        context_dict['payment']=payment
+        return render_to_response('expans/company/myitemdetails.html',context_dict,context)
+    except:
+        context = RequestContext(request)
+        count=0
+        trans=Transaction.objects.filter(mylist_id=mylistid)
+        for i in trans :
+            count=count+i.qnty
+
+        mylist1=Mylist.objects.get(id=mylistid)
+        total= mylist1.price*count 
+        
+        context_dict = {   'total':total,
+                        }
+        balance=-total
+        advance=0
+        context_dict['balance']=balance
+        context_dict['advance']=advance
+        context_dict['mylist1']=mylist1
+
+        return render_to_response('expans/company/myitemdetails.html',context_dict,context)
+    # return render_to_response('expans/company/myitemdetails.html',context_dict,context)
+
+@login_required
+def company_add_advance(request,mylistid):
     context = RequestContext(request)
-    item_list=get_item_list()
-    supplier_list=get_supplier_list()
-    day=date.today()
-    now= datetime.now()
-    month=now.month
-    count=0
-    count1=0
-    count2=0
-    count3=0
-    count4=0
-    sl=0
-    yesterday=(day-timedelta(days=1))
-    week=(day-timedelta(days=7))
-    today=(day+timedelta(days=1))
-    trans=Transaction.objects.filter(mylist_id=mylistid)
-    for i in trans :
-        count=count+i.qnty
-
-    mylist1=Mylist.objects.get(id=mylistid)
-    item=Item.objects.get(id=mylist1.id)
-    total= mylist1.price*count 
+    context_dict={}
     
-    transaction_list1=Transaction.objects.filter(date__contains=day,mylist_id=mylistid)
-    for i in transaction_list1:
-        count1=count1+i.qnty
-    total1=mylist1.price*count1
-    
-    transaction_list2=Transaction.objects.filter(date__contains=yesterday,mylist_id=mylistid)
-    for i in transaction_list2:
-        count2=count2+i.qnty
-    total2=mylist1.price*count2
-    
-    transaction_list3=Transaction.objects.filter(date__range=[week,today],mylist_id=mylistid)
-    for i in transaction_list3:
-        count3=count3+i.qnty
-    total3=mylist1.price*count3
+    if request.method == 'POST':
+        my=Mylist.objects.get(id=mylistid)
+        advance=int(request.POST['advance'])
+        payment_list=Payment.objects.filter(mylist=mylistid)
 
-    transaction_list4=Transaction.objects.filter(date__year="2017",date__month=month,mylist_id=mylistid)
-    for i in transaction_list4:
-        count4=count4+i.qnty
-    total4=mylist1.price*count4
+        total=0
+        for adv in payment_list:
+            total=total+adv.advance
+        balance=total+advance
 
-    context_dict = {'item_list': item_list,
-                    'supplier_list':supplier_list,
-                    'transaction_list1':transaction_list1,
-                    'transaction_list2':transaction_list2,
-                    'transaction_list3':transaction_list3,
-                    'transaction_list4':transaction_list4,
-                    'day':day,'week':week,
-                    'date1':yesterday,
-                    'count':count,
-                    'mylist1':mylist1,
-                    'count1':count1,
-                    'count2':count2,
-                    'count3':count3,
-                    'count4':count4,
-                    'item':item,
-                    'total':total,
-                    'total1':total1,
-                    'total2':total2,
-                    'total3':total3,
-                    'total4':total4,
-                    'month':month,
-                    'now':now,
-                    'sl':sl,
-                    }
-    org=Oraganization.objects.get(user=request.user)
-    mylist=Mylist.objects.filter(org=org)
-    context_dict['mylist']=mylist
+        trans=Transaction.objects.filter(mylist_id=mylistid)
+        count=0
+        for t in trans:
+            count=count+t.qnty
+        total=count*float(my.price)
+        due=balance-total
 
-    return render_to_response('expans/company/myitemdetails.html',context_dict,context)
+        pay_obj =Payment(mylist=my,advance=advance,balance=balance,due=due,qnty=count,total=total)
+        pay_obj.save()
+        advance = str(advance)
+        supplier = str(my.sup.user)
+        mylist_id= str(my.id)
+        messages.success(request, "You given advance of Rs "+advance+" To supplier "+supplier+" ")
+        return HttpResponseRedirect('/expans/companymyitemdetails/'+mylist_id+'/')
+
+@login_required
+def dashboard(request):
+    context = RequestContext(request)
+    transaction_list=Transaction.objects.all()
+    dashlist=[]
+    for t in transaction_list:
+        print t.id
+        print t.qnty
+        print t.mylist_id
+        dashlist.extend(list(Mylist.objects.filter(id=t.mylist_id)))
+
+    context_dict={ 'transaction_list':transaction_list,
+                    'dishlist':dashlist }
+    return render_to_response('expans/dashboard.html',context_dict,context)

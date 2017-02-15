@@ -79,9 +79,7 @@
                       <input type="submit" class="btn btn-outline btn-success" value="Save">
                     </form>
                   </div>
-                </div>
-              
-
+                </div
                <div id="addsupform" style="display: none;">
                   <div class="login-form">
                     <form action="/expans/comp_add_supplier/" method="post" enctype="multipart/form-data">
@@ -155,26 +153,50 @@
                           <span></span>
                         </div>
 
+
                         <div class="styled-input">
-                          <input type="text" name="measured" required=""/>
+                         <input type="text" name="price" pattern="[0-9]+.[0-9]*" required=""/>
+                          <label>Unit of price: ₹ ex: 2.00 </label>
+                          <span></span>
+                        </div>
+
+                        <div class="styled-input">
+                           unit of meassurement:
+                           <select name="measured" style="padding: 2px 170px;">
+                                <option value="cups">cups</option>
+                                <option value="packet">packet</option>
+                                <option value="Numbers">numbers</option>
+                                <option value="Numbers">bottels</option>
+                              </select>        
+                        <!--   <input type="text" name="measured" required=""/>
                           <label>unit of meassurement:</label>
                           <span></span>
-                        </div>
+                         -->
+                         </div>
 
-                        <div class="styled-input">
-                          <input type="text" name="price" pattern="[0-9]+" required=""/>
-                          <label>Unit of price: ₹</label>
+                             <div class="styled-input">
+                             pay option: 
+                             <select name="paydate" style="padding: 0px 160px;">
+                                <option value="weekly">For weekly once</option>
+                                <option value="15 Days">For 15 Days once</option>
+                                <option value="monthly">For Monthly once</option>
+                              </select>                              
+                             </div>                       
+                       <div class="styled-input">
+                          <input type="text" name="advance" pattern="[0-9]+" maxlength="4" required=""/>
+                          <label>Advance Amount taken</label>
                           <span></span>
                         </div>
 
+
                         <input type="submit" class="btn btn-outline btn-success" value="Save">
-                      <!-- <input type="reset" class="btn btn-outline btn-success" value="Reset">    -->
-                    </form>
+                      </form>
+
                   </div>
   
       </div>
 </div>
-  <script>
+<script>
       // script for radio button for toggle select
      $("#selectForm").on('click', function () {
         $("#searchbox").fadeIn();
@@ -307,7 +329,7 @@
 
 
 
-  </script>
+</script>
 
 <!--- Imgage auto complete files -->
 <script src='http://code.jquery.com/jquery-1.11.0.min.js'></script>
@@ -320,13 +342,13 @@
   var projects = [
     {
       value: "1",
-      label: "Water-can",
+      label: "Water",
       desc: "",
-      icon: "water-can.png"
+      icon: "water.png"
     },
     {
       value: "2",
-      label: "Tea-coffe",
+      label: "Tea",
       desc: "",
       icon: "tea.png"
     },
@@ -337,9 +359,9 @@
       icon: "bun.png"
     },{
       value: "4",
-      label: "Chakuli",
+      label: "cake",
       desc: "",
-      icon: "chakuli.png"
+      icon: "cake.png"
     },
     {
       value: "5",
@@ -349,9 +371,9 @@
     },
     {
       value: "6",
-      label: "Chocolates",
+      label: "coffee",
       desc: "",
-      icon: "chocolate.png"
+      icon: "cafe.png"
     },
     {
       value: "7",

@@ -1,0 +1,44 @@
+{% extends "expans/base.html" %}
+
+{% block title %}
+{% endblock %}
+
+{% block body_block %}
+
+
+<body>
+       
+
+<table class=" table table-striped">
+  <th> Date</th>
+  <th>supplier</th>
+  <th>contact no</th>
+  <th>item</th>
+  <th>units suppllier</th>
+  <th>Total amount</th>
+  <th>companies served</th>
+hello..
+{% for t in transaction_list %}
+{% for m in dishlist %}
+{% ifequal  m.id t.mylist_id %}
+    <tr>
+      <td>{{t.date}}</td>
+      <td>{{m.sup.user}}</td>      
+      <td>{{m.sup.phoneno}}</td>
+      <td>{{m.item.name}}</td>
+      <td>{{t.qnty}} </td>
+      <td>{{t.total}}</td>
+      <td>{{m.org.user}}</td>
+    </tr>   
+{% endifequal %}
+{% endfor %}
+{% endfor %}  
+
+
+</table> 
+  
+</div>
+</div>
+</body>
+
+{% endblock %}
