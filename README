@@ -1,0 +1,70 @@
+# django-otp
+
+This library help developers to autheticate users using their phone with otp. This is exactly same as whatsapp authentication and not two-factor authentication.
+
+## Getting Started
+
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+
+### Prerequisites
+
+```
+pip install django
+pip install django-oauth-toolkit
+pip install rest_framework
+pip install 
+
+```
+
+### Installing
+
+Install prerequisites and clone the library. Change database configuration,
+
+```
+./manage.py makemigrations
+./manage.py migrate
+./manage.py createsuperuser
+```
+This will create database and super user.
+
+## Deployment
+
+To run django server on local machine
+
+```
+./manage.py runserver 0.0.0.0:8080
+```
+Now, you can make calls on localhost:8080. To deploy on live use proper web server(nginx or apache)
+
+## Flow
+
+Login and create client application to get client id, client secret.
+
+```
+localhost:8080/admin/
+localhost:8080/expans/
+```
+
+### Call flow
+
+
+### Calls
+
+```
+
+## Built With
+
+
+## Contributing
+
+
+## Versioning
+
+## Authors
+
+
+## License
+
+
+## Help
+In case of any problem or suggestions drop me a mail at : manju24j [at] gmail [dot] com
